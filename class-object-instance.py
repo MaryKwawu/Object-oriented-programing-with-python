@@ -50,6 +50,13 @@ class Item:
         else:
             return False
 
+    def is_checking(num):
+        # to print out either an integer or a floating number
+        if isinstance(num, (int, float)):
+            return True
+        else:
+            return False
+
     def is_decimal(num):
         # Print out floating numbers
         if isinstance(num, int):
@@ -63,7 +70,7 @@ class Item:
         return f"Item('{self.name}, {self.price}, {self.quantity})"
 
 
-print(Item.is_decimal(1))
+print(Item.is_checking(5.5))
 
 # Item.instantiate_from_csv()
 # print(Item.all)
