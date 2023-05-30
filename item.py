@@ -5,11 +5,10 @@ class Item:
     pay_rate = 0.8  # this is an attribute for class but it can be accessed by an instance also
     all = []
 
-    def __init__(self, name, price, quantity=0):
+    def __init__(self, name:str, price:float, quantity=0):
         # Run validation to the recieved arguement: assert-it prevents negative values from printing and also catching bugs
         assert price >= 0, f"Price{price} is not greater than or equal to zero"
-        assert quantity >= 0;
-        f"Quantity{quantity} is not greater or equal equal to zero"
+        assert quantity >= 0;f"Quantity{quantity} is not greater or equal equal to zero"
 
         # creating a self object
         self.__name = name
@@ -19,6 +18,17 @@ class Item:
         # Actions to execute
         Item.all.append(self)
 
+        @property
+        def price(self):
+            return self.__price
+
+    def apply_discount(self):
+        self.price = self.price * self.pay_rate
+            # self.price = self.price * self.pay_rate
+
+    def apply_increment(self, increment_value):
+           self.price = self.price + self.price * increment_value
+
         # @property
         # def read_only_name(self):
         #     return "Mary"
@@ -26,9 +36,6 @@ class Item:
     def calculate_total_price(self):
         return self.price * self.quantity
 
-    def apply_discount(self):
-        self.price = self.price * Item.pay_rate
-        # self.price = self.price * self.pay_rate
 
     @classmethod
     def instantiate_from_csv(cls):
@@ -74,20 +81,29 @@ class Item:
         return f"{self.__class__.__name__}('{self.name}, {self.price}, {self.quantity})"
 
     @property
-    #proper Decorator = Read-only Attribute
+    # proper Decorator = Read-only Attribute
     def name(self):
         return self.__name
 
     @name.setter
     def name(self, value):
-        self.__name = value
+        if len(value) > 10:
+            raise Exception("The name is too longooo!")
+        else:
+            self.__name = value
 
 
 
 
 
 
-print(Item.is_checking(5.5))
+
+
+
+# print("You are trying to set")
+
+
+# print(Item.is_checking(5.5))
 
 # Item.instantiate_from_csv()
 # print(Item.all)
@@ -112,7 +128,6 @@ item2.apply_discount()
 # print(item2.calculate_total_price())
 # print(Item.__dict__) # allows you to see all the attribute of class level
 # print(item1.__dict__) # allows you to see all the attribute of instance  level
-
 
 
 # print(Item.is_checking(5.5))
